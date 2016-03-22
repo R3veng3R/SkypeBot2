@@ -2,6 +2,7 @@ package models;
 
 import com.samczsun.skype4j.Skype;
 import com.samczsun.skype4j.SkypeBuilder;
+import com.samczsun.skype4j.Visibility;
 import com.samczsun.skype4j.chat.Chat;
 import com.samczsun.skype4j.events.EventHandler;
 import com.samczsun.skype4j.events.Listener;
@@ -47,9 +48,9 @@ public class SkypeBot {
         });
         skype.login();
         skype.subscribe();
+        skype.setVisibility(Visibility.ONLINE);
         loadPlugins();
         Util.loggerInfo("SkypeBot загружен!");
-        Util.loggerInfo("НАПОМИНАНИЕ: перед заливкой на гит удалите пароль и логин от скайпа!!!!");
     }
 
     private static void loadPlugins() {
