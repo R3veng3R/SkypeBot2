@@ -15,8 +15,8 @@ import plugins.*;
 import java.util.ArrayList;
 
 public class SkypeBot {
-    public static final String USERNAME = "***";
-    public static final String PASSWORD = "***";
+    public static final String USERNAME = "marty.bot1";
+    public static final String PASSWORD = "skin123cool";
 
     public static final String BOT_COMMAND_RU = "!бот";
     public static final String BOT_COMMAND_EN = "!bot";
@@ -48,8 +48,8 @@ public class SkypeBot {
         skype.login();
         skype.subscribe();
         loadPlugins();
-        System.out.println("SkypeBot загружен.");
-        System.out.println("НАПОМИНАНИЕ: перед заливкой на гит удалите пароль и логин от скайпа!!!!");
+        Util.loggerInfo("SkypeBot загружен!");
+        Util.loggerInfo("НАПОМИНАНИЕ: перед заливкой на гит удалите пароль и логин от скайпа!!!!");
     }
 
     private static void loadPlugins() {

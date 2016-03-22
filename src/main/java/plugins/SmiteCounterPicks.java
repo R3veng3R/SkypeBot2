@@ -5,12 +5,14 @@ import com.samczsun.skype4j.exceptions.ConnectionException;
 import com.samczsun.skype4j.formatting.Message;
 import com.samczsun.skype4j.formatting.Text;
 import com.samczsun.skype4j.user.User;
+import models.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +20,7 @@ import java.util.ArrayList;
  */
 public class SmiteCounterPicks extends Plugin {
     private static final String MOBA_COUNTER_URL = "http://mobacounter.com";
+    private static final int CONNECTION_TIMEOUT = 10000;
 
     public SmiteCounterPicks() {
         this.pluginName = "Smite Counter Picks";
@@ -38,8 +41,11 @@ public class SmiteCounterPicks extends Plugin {
             return true;
 
         } catch (Exception e) {
-            System.err.println("Exception in SmiteCounterPicks !!!");
-            e.printStackTrace();
+            Util.loggerError("Exception in SmiteCounterPicks !!! ");
+            try {
+                chat.sendMessage("Не смог соединиться с сервером, возможно от не отвечает! Попробуйте позже.");
+                return true;
+            } catch (ConnectionException e1) {}
         }
 
         return false;
@@ -49,7 +55,7 @@ public class SmiteCounterPicks extends Plugin {
         String smiteCharacterUnformatted = message.substring(10).trim();
         String smiteCharacterLink = smiteCharacterUnformatted.replaceAll(" ", "-");
 
-        Document doc = Jsoup.connect(MOBA_COUNTER_URL + "/smite/" + smiteCharacterLink).get();
+        Document doc = Jsoup.connect(MOBA_COUNTER_URL + "/smite/" + smiteCharacterLink).timeout(CONNECTION_TIMEOUT).get();
         String title = doc.title();
 
         if (!title.toLowerCase().contains(smiteCharacterUnformatted)) {

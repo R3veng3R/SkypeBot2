@@ -12,7 +12,7 @@ public class BotHelp extends Plugin {
 
     public BotHelp() {
         this.pluginName = "Bot Help";
-        this.setCommands(new String[]{"help", "помощь"});
+        this.setCommands(new String[]{"help", "помощь", "хелп"});
 
         this.pluginLoaded();
     }
