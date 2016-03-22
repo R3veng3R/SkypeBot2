@@ -14,6 +14,7 @@ import com.samczsun.skype4j.user.User;
 import plugins.*;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class SkypeBot {
     public static final String USERNAME = "marty.bot1";
@@ -35,7 +36,7 @@ public class SkypeBot {
     }
 
     private static void init() throws ConnectionException, NotParticipatingException, InvalidCredentialsException {
-        Skype skype = new SkypeBuilder(USERNAME, PASSWORD).withResource("/v1/users/ME/conversations/ALL/messages").build();
+        Skype skype = new SkypeBuilder(USERNAME, PASSWORD).withAllResources().build();
 
         skype.getEventDispatcher().registerListener(new Listener() {
             @EventHandler

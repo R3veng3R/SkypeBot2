@@ -12,8 +12,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 
 /**
  * Created by ALEX on 21.03.2016.
@@ -41,11 +39,12 @@ public class SmiteCounterPicks extends Plugin {
             return true;
 
         } catch (Exception e) {
-            Util.loggerError("Exception in SmiteCounterPicks !!! ");
             try {
-                chat.sendMessage("Не смог соединиться с сервером, возможно от не отвечает! Попробуйте позже.");
+                Util.loggerError("Exception in SmiteCounterPicks !!! ");
+                chat.sendMessage("Не смог соединиться с сервером, возможно он не отвечает! Попробуйте позже.");
                 return true;
-            } catch (ConnectionException e1) {}
+            } catch (ConnectionException e1) {
+            }
         }
 
         return false;
