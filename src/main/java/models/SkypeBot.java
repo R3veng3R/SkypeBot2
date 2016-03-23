@@ -107,6 +107,13 @@ public class SkypeBot {
 
         } catch (IOException e) {
             Util.exitWithError("Couldn't load config");
+
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {}
+            }
         }
     }
 

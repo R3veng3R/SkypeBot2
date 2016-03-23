@@ -43,8 +43,7 @@ public class SmiteCounterPicks extends Plugin {
                 Util.loggerError("Exception in SmiteCounterPicks !!! ");
                 chat.sendMessage("Не смог соединиться с сервером, возможно он не отвечает! Попробуйте позже.");
                 return true;
-            } catch (ConnectionException e1) {
-            }
+            } catch (ConnectionException e1) {}
         }
 
         return false;
@@ -67,26 +66,9 @@ public class SmiteCounterPicks extends Plugin {
         Elements strongAgainstCharacters = counterBox.get(1).getElementsByClass("counterChampion");
         Elements goodStandingCharacters = counterBox.get(2).getElementsByClass("counterChampion");
 
-        String weakAgainst = " ";
-        if (!weakAgainstCharacters.isEmpty()) {
-            for (Element character : weakAgainstCharacters) {
-                weakAgainst += character.getElementsByTag("img").attr("alt") + ", ";
-            }
-        }
-
-        String strongAgainst = " ";
-        if (!strongAgainstCharacters.isEmpty()) {
-            for (Element character : strongAgainstCharacters) {
-                strongAgainst += character.getElementsByTag("img").attr("alt") + ", ";
-            }
-        }
-
-        String goodWith = " ";
-        if (!goodStandingCharacters.isEmpty()) {
-            for (Element character : goodStandingCharacters) {
-                goodWith += character.getElementsByTag("img").attr("alt") + ", ";
-            }
-        }
+        String weakAgainst = getData(weakAgainstCharacters);
+        String strongAgainst = getData(strongAgainstCharacters);
+        String goodWith = getData(goodStandingCharacters);
 
         Message messageToSend = getMessageToSend(
                 smiteCharacterUnformatted,
@@ -101,6 +83,17 @@ public class SmiteCounterPicks extends Plugin {
 
     private String getCharacterFormattedName(String name) {
         return Character.toUpperCase(name.charAt(0)) + name.substring(1);
+    }
+
+    private String getData(Elements elements) {
+        String characters = " ";
+        if (!elements.isEmpty()) {
+            for (Element character : elements) {
+                characters += character.getElementsByTag("img").attr("alt") + ", ";
+            }
+        }
+
+        return characters;
     }
 
     private Message getMessageToSend(String unformatedCharacterName, String link, String weakAgainst, String strongAgainst, String goodWith) {
