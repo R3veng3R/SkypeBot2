@@ -97,7 +97,7 @@ public class SkypeBot {
         InputStream input = null;
 
         try {
-            input = new FileInputStream("botConfig.properties");
+            input = new FileInputStream("bot.properties");
             prop.load(input);
             USERNAME = prop.getProperty("username");
             PASSWORD = prop.getProperty("password");
@@ -115,6 +115,10 @@ public class SkypeBot {
                 } catch (IOException e) {}
             }
         }
+
+        Util.loggerInfo("Bot config loaded:\n" +
+                "username: " + USERNAME + "\n" +
+                "password: " + PASSWORD );
     }
 
     public static boolean containsBotCommand(String msg) {
