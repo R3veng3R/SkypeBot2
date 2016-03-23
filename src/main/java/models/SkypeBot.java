@@ -67,6 +67,7 @@ public class SkypeBot {
         plugins.add(new SmiteCounterPicks());
         plugins.add(new BotGreet());
         plugins.add(new BotHelp());
+        plugins.add(new LentaRuNews());
     }
 
     private static void processRequest(Chat chat, String message, User sender) {
@@ -116,9 +117,9 @@ public class SkypeBot {
             }
         }
 
-        Util.loggerInfo("Bot config loaded:\n" +
-                "username: " + USERNAME + "\n" +
-                "password: " + PASSWORD );
+        Util.loggerInfo("Bot config loaded.");
+        Util.loggerInfo("USERNAME: " + USERNAME);
+        Util.loggerInfo("PASSWORD: " + PASSWORD);
     }
 
     public static boolean containsBotCommand(String msg) {
