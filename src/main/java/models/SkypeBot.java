@@ -13,20 +13,25 @@ import com.samczsun.skype4j.exceptions.NotParticipatingException;
 import com.samczsun.skype4j.user.User;
 import plugins.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.logging.Logger;
+import java.util.Properties;
 
 public class SkypeBot {
-    public static final String USERNAME = "marty.bot1";
-    public static final String PASSWORD = "skin123cool";
-
     public static final String BOT_COMMAND_RU = "!бот";
     public static final String BOT_COMMAND_EN = "!bot";
 
     public static ArrayList<Plugin> plugins;
 
+    private static String USERNAME;
+    private static String PASSWORD;
+
     public static void initBot() {
         try {
+            loadBotConfig();
             init();
 
         } catch (Exception e) {
@@ -84,6 +89,24 @@ public class SkypeBot {
             } catch (ConnectionException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static void loadBotConfig() {
+        Properties prop = new Properties();
+        InputStream input = null;
+
+        try {
+            input = new FileInputStream("botConfig.properties");
+            prop.load(input);
+            USERNAME = prop.getProperty("username");
+            PASSWORD = prop.getProperty("password");
+
+        } catch(FileNotFoundException e) {
+            Util.exitWithError("Config file has not been found!");
+
+        } catch (IOException e) {
+            Util.exitWithError("Couldn't load config");
         }
     }
 
