@@ -46,7 +46,7 @@ public class LentaRuNews extends  Plugin {
             } else {
                 chat.sendMessage("Новостей нет :( ");
             }
-            
+
             news.clear();
             return true;
         } catch (Exception e) {
